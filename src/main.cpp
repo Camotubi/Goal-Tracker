@@ -9,6 +9,7 @@
 //---Prototypes
 void printAllItems(std::vector<Item> itemList);
 void addItem(std::vector<Item> &itemList);
+void selectItem(std::vector<Item> &itemList);
 //---Global Variables
 std::string invalidOptionText = ">>Thats not an option, please try again";
 std::string mainMenuText = "1)List everything\n2)Add Item\n3)Select Item\n4)Delete Item\n0)End Program\n:"; 
@@ -71,7 +72,7 @@ void printAllItems(std::vector<Item> itemList)
 {
 	if(!itemList.empty())
 	{
-		std::cout<<"id\tName"<<std::endl;
+		std::cout<<"id\tName"<<std:::endl;
 		for(int i = 0; i<itemList.size();i++)
 		{
 			std::cout<<i<<"\t"<<itemList.at(i).getName()<<std::endl;
@@ -153,4 +154,10 @@ void addItem(std::vector<Item> &itemList)
 			std::cout<<invalidOptionText<<std::endl;
 		}
 	}while(inputError);
+}
+
+void selectItem( std::vector<Item> &itemList)
+{
+
+
 }
