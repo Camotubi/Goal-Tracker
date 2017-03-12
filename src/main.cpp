@@ -7,9 +7,12 @@
 
 
 //---Prototypes
-void printAllItems(std::vector<Item> itemList);
+void printAllItems(std::vector<Item> &itemList);
 void addItem(std::vector<Item> &itemList);
 void selectItem(std::vector<Item> &itemList);
+void readNumber(int &num);
+void readNumber(float &num);
+void readNumber(double &num);
 //---Global Variables
 std::string invalidOptionText = ">>Thats not an option, please try again";
 std::string mainMenuText = "1)List everything\n2)Add Item\n3)Select Item\n4)Delete Item\n0)End Program\n:"; 
@@ -42,7 +45,7 @@ int main()
 						addItem(itemList);
 						break;
 					case 3:
-
+						selectItem(itemList);
 						break;
 
 
@@ -68,11 +71,11 @@ int main()
 	return 0;
 }
 
-void printAllItems(std::vector<Item> itemList)
+void printAllItems(std::vector<Item> &itemList)
 {
 	if(!itemList.empty())
 	{
-		std::cout<<"id\tName"<<std:::endl;
+		std::cout<<"id\tName"<<std::endl;
 		for(int i = 0; i<itemList.size();i++)
 		{
 			std::cout<<i<<"\t"<<itemList.at(i).getName()<<std::endl;
@@ -158,6 +161,103 @@ void addItem(std::vector<Item> &itemList)
 
 void selectItem( std::vector<Item> &itemList)
 {
+	printAllItems(itemList);	
+	int itemId;
+	bool inputError;
+	do
+	{
+		std::cout<<"Item id:";
+		std::cin>>itemId;
+		if(std::cin)
+		{
+			inputError = false;
+		}
+		else
+		{
+			inputError = true;
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cout<<invalidOptionText<<std::endl;
+		}
+	
+	}while(inputError);
+	if(itemId < itemList.size() )
+	{
+		int op;
+		std::cout<<"1)Replace current number\n2)List Number History\n3)Print Highest\n4)Print Lowest\n5)Print everything\n6)Delete Item\n0)Back to main menu."<<std::endl;	
+		readNumber(op);
+		std::cout<<op;		
+	}
+	else
+	{
+		std::cout<<"Item id was not found"<<std::endl;
+	}
+}
+
+void readNumber(int &num)
+{
+	bool inputError;
+	do
+	{
+		std::cin>>num;
+		if(std::cin)
+		{
+			inputError = false;
+		}
+		else
+		{
+			std::cout<<"Expecting Number"<<std::endl;
+			inputError = true;
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cout<<invalidOptionText<<std::endl;
+		}
+	
+	}while(inputError);
+}
 
 
+void readNumber( float &num)
+{
+	bool inputError;
+	do
+	{
+		std::cin>>num;
+		if(std::cin)
+		{
+			inputError = false;
+		}
+		else
+		{
+			std::cout<<"Expecting Number"<<std::endl;
+			inputError = true;
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cout<<invalidOptionText<<std::endl;
+		}
+	
+	}while(inputError);
+}
+
+
+void readNumber( double &num)
+{
+	bool inputError;
+	do
+	{
+		std::cin>>num;
+		if(std::cin)
+		{
+			inputError = false;
+		}
+		else
+		{
+			std::cout<<"Expecting Number"<<std::endl;
+			inputError = true;
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cout<<invalidOptionText<<std::endl;
+		}
+	
+	}while(inputError);
 }
