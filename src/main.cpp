@@ -26,16 +26,10 @@ int main()
 	while(run)
 	{
 
-		bool inputError = true;
-		do
-		{
 
 			int mainMenuOp;
 			std::cout<<mainMenuText;
-			std::cin>>mainMenuOp;
-			if(std::cin)
-			{
-				inputError = false;
+			readNumber(mainMenuOp);
 				switch(mainMenuOp)
 				{
 					case 1:
@@ -58,14 +52,6 @@ int main()
 						std::cout<<invalidOptionText<<std::endl;
 						break;
 				}
-			}
-			else
-			{
-				std::cin.clear();
-				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-				std::cout<<invalidOptionText<<std::endl;
-			}
-		}while(inputError);
 
 	}
 	return 0;
@@ -92,71 +78,43 @@ void addItem(std::vector<Item> &itemList)
 {
 
 	bool inputError = true;
-	do
-	{
 		int op = 0;
 		std::cout<<"1)Number.\n2)Date.\n0)Back to main menu."<<std::endl;
-		std::cin>>op;
-		if(std::cin)
+		readNumber(op);
+		switch(op)
 		{
-			inputError = false;
-			switch(op)
-			{
-				case 0:
-					return;
-					break;
-				case 1:
-					{
-					       
-						std::string name;
-						std::string descrip;
-						std::string unit;
-						float initialNum;
-						std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-						std::cout<<"Name:";
-						std::getline(std::cin,name);
-						std::cout<<"Description:";
-						std::getline(std::cin,descrip);
-						
-						std::cout<<"Unit:";
-						std::getline(std::cin,unit);
+			case 0:
+				return;
+				break;
+			case 1:
+				{
+				       
+					std::string name;
+					std::string descrip;
+					std::string unit;
+					float initialNum;
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+					std::cout<<"Name:";
+					std::getline(std::cin,name);
+					std::cout<<"Description:";
+					std::getline(std::cin,descrip);
+					
+					std::cout<<"Unit:";
+					std::getline(std::cin,unit);
 
-						bool inputError2;
-						do
-						{
-							std::cout<<"Initial Value:";
-							std::cin>>initialNum;
-							if(std::cin)
-							{
-								inputError2 = false;
-							}
-							else
-							{
-								inputError2 = true;
-								std::cin.clear();
-								std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-								std::cout<<invalidOptionText<<std::endl;
-							}
-						}while(inputError2);
-						Number numberItem(name, descrip, unit, initialNum);
-						itemList.push_back(numberItem);
-						break;
-					}
-				case 2:
+					std::cout<<"Initial Value:";
+					readNumber(initialNum);
+					Number numberItem(name, descrip, unit, initialNum);
+					itemList.push_back(numberItem);
+					break;
+				}
+			case 2:
 
-					break;
-				default:
-					std::cout<<invalidOptionText<<std::endl;
-					break;
-			}
+				break;
+			default:
+				std::cout<<invalidOptionText<<std::endl;
+				break;
 		}
-		else
-		{
-			std::cin.clear();
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-			std::cout<<invalidOptionText<<std::endl;
-		}
-	}while(inputError);
 }
 
 void selectItem( std::vector<Item> &itemList)
@@ -164,23 +122,9 @@ void selectItem( std::vector<Item> &itemList)
 	printAllItems(itemList);	
 	int itemId;
 	bool inputError;
-	do
-	{
-		std::cout<<"Item id:";
-		std::cin>>itemId;
-		if(std::cin)
-		{
-			inputError = false;
-		}
-		else
-		{
-			inputError = true;
-			std::cin.clear();
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-			std::cout<<invalidOptionText<<std::endl;
-		}
-	
-	}while(inputError);
+
+	std::cout<<"Item id:";
+	readNumber(itemId);
 	if(itemId < itemList.size() )
 	{
 		int op;
