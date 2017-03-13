@@ -12,9 +12,11 @@ void addItem(std::vector<Item> &itemList);
 void selectItem(std::vector<Item> &itemList);
 template <typename numeric>
 void readNumber(numeric &num);
+template <typename numeric>
+void readNumber(numeric &num, std::string leadingText);
 //---Global Variables
 std::string invalidOptionText = ">>Thats not an option, please try again";
-std::string mainMenuText = "1)List everything\n2)Add Item\n3)Select Item\n4)Delete Item\n0)End Program\n:"; 
+std::string mainMenuText = "1)List everything\n2)Add Item\n3)Select Item\n4)Delete Item\n0)End Program\n"; 
 std::string programExitText = ">>GoodBye :)";
 
 int main()
@@ -28,7 +30,7 @@ int main()
 
 			int mainMenuOp;
 			std::cout<<mainMenuText;
-			readNumber(mainMenuOp);
+			readNumber(mainMenuOp,":");
 				switch(mainMenuOp)
 				{
 					case 1:
@@ -101,8 +103,7 @@ void addItem(std::vector<Item> &itemList)
 					std::cout<<"Unit:";
 					std::getline(std::cin,unit);
 
-					std::cout<<"Initial Value:";
-					readNumber(initialNum);
+					readNumber(initialNum,"Initial Value:");
 					Number numberItem(name, descrip, unit, initialNum);
 					itemList.push_back(numberItem);
 					break;
@@ -128,7 +129,7 @@ void selectItem( std::vector<Item> &itemList)
 	{
 		int op;
 		std::cout<<"1)Replace current number\n2)List Number History\n3)Print Highest\n4)Print Lowest\n5)Print everything\n6)Delete Item\n0)Back to main menu."<<std::endl;	
-		readNumber(op);
+		readNumber(op,":");
 		std::cout<<op;		
 	}
 	else
@@ -160,3 +161,27 @@ void readNumber(numeric &num)
 }
 
 
+template <typename numeric>
+void readNumber(numeric &num, std::string leadingText)
+{
+
+	bool inputError;
+	do
+	{
+		std::cout<<leadingText;
+		std::cin>>num;
+		if(std::cin)
+		{
+			inputError = false;
+		}
+		else
+		{
+			std::cout<<">>Expecting Number"<<std::endl;
+			inputError = true;
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cout<<invalidOptionText<<std::endl;
+		}
+	
+	}while(inputError);
+}
