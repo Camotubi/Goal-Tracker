@@ -10,9 +10,8 @@
 void printAllItems(std::vector<Item> &itemList);
 void addItem(std::vector<Item> &itemList);
 void selectItem(std::vector<Item> &itemList);
-void readNumber(int &num);
-void readNumber(float &num);
-void readNumber(double &num);
+template <typename numeric>
+void readNumber(numeric &num);
 //---Global Variables
 std::string invalidOptionText = ">>Thats not an option, please try again";
 std::string mainMenuText = "1)List everything\n2)Add Item\n3)Select Item\n4)Delete Item\n0)End Program\n:"; 
@@ -137,8 +136,8 @@ void selectItem( std::vector<Item> &itemList)
 		std::cout<<"Item id was not found"<<std::endl;
 	}
 }
-
-void readNumber(int &num)
+template <typename numeric>
+void readNumber(numeric &num)
 {
 	bool inputError;
 	do
@@ -161,47 +160,3 @@ void readNumber(int &num)
 }
 
 
-void readNumber( float &num)
-{
-	bool inputError;
-	do
-	{
-		std::cin>>num;
-		if(std::cin)
-		{
-			inputError = false;
-		}
-		else
-		{
-			std::cout<<"Expecting Number"<<std::endl;
-			inputError = true;
-			std::cin.clear();
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-			std::cout<<invalidOptionText<<std::endl;
-		}
-	
-	}while(inputError);
-}
-
-
-void readNumber( double &num)
-{
-	bool inputError;
-	do
-	{
-		std::cin>>num;
-		if(std::cin)
-		{
-			inputError = false;
-		}
-		else
-		{
-			std::cout<<"Expecting Number"<<std::endl;
-			inputError = true;
-			std::cin.clear();
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-			std::cout<<invalidOptionText<<std::endl;
-		}
-	
-	}while(inputError);
-}
